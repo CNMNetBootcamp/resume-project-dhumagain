@@ -12,8 +12,9 @@ namespace ResumeProject.Models
         public string CompanyName { get; set; }
         public string CompanyLocation { get; set; }
         public DateTime WorkStartDate { get; set; }
-        public DateTime WorkEndDate { get; set; }
-
+        public DateTime WorkEndDate { get; set; }        
+        
+        public int ApplicantID { get; set; }    
         public Applicant Applicant { get; set; }
         public ICollection<Duty> Duties { get; set; }
         

@@ -36,6 +36,9 @@ namespace ResumeProject
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
+            services.AddDbContext<ResumeContext>(options =>
+        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc();
         }
 

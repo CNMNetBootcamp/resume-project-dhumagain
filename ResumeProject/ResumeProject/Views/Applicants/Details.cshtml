@@ -1,0 +1,120 @@
+﻿@model ResumeProject.Models.Applicant
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Applicant</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Educations)
+        </dt>
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>School Name</th>
+                    <th>School Address</th>
+                    <th>Major</th>
+                    <th>Minor</th>
+                    <th>Cummulative GPA</th>
+                    <th>Graduation Date</th>
+                </tr>
+                @foreach (var item in Model.Educations)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SchoolName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SchoolAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Major)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Minor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GPA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GraduationDate)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Jobs)
+        </dt>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Company Name</th>
+                    <th>Company Address</th>
+                    <th>Position</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+
+                </tr>
+                @foreach (var item in Model.Jobs)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyLocation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Position)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkStartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkEndDate)
+                    </td>
+
+                </tr>
+                }
+        </dd>
+
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ApplicantID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
