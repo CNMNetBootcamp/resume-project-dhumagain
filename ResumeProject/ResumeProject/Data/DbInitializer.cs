@@ -49,7 +49,7 @@ namespace ResumeProject.Data
             {
             new Job{ApplicantID = context.Applicants.FirstOrDefault(y => y.FirstName=="Dipendra").ApplicantID, CompanyName ="Albuquerque Water Authority", CompanyLocation ="6000 Alexander Blvd, ABQ NM",
                 Position ="Compliance Division Intern", WorkStartDate =DateTime.Parse("09-17-2018"), WorkEndDate = DateTime.Parse("12-30-2020")},
-            new Job{ApplicantID = context.Applicants.FirstOrDefault(y => y.FirstName=="Dipendra").ApplicantID, CompanyName ="Jai Khodiyar Inc", CompanyLocation ="13211 Central Ave, ABQ NM",
+            new Job{ApplicantID = context.Applicants.FirstOrDefault(y => y.FirstName=="Dipendra").ApplicantID, CompanyName ="Econo Lodge East", CompanyLocation ="13211 Central Ave, ABQ NM",
                 Position ="Assistant General Manager", WorkStartDate =DateTime.Parse("05-01-2013"), WorkEndDate = DateTime.Parse("09-16-2018")}
 
             };
@@ -60,10 +60,23 @@ namespace ResumeProject.Data
             }
             context.SaveChanges();
 
-            // Duties are part of Job, so how do I call them here??
+            // 
             var duties = new Duty[]
             {
-            new Duty{ JobID = context.Applicants.FirstOrDefault(y => y.FirstName=="Dipendra").ApplicantID, DutiesPerformed ="answer phone"}
+            new Duty{ JobID = context.Jobs.FirstOrDefault(y => y.CompanyName =="Econo Lodge East").JobID,
+                DutiesPerformed ="Assistant General Manager:  Coordinated lodging for clients, assistedclients with transportation and providedother pertinent. " +
+                "    Trainedand supervisedemployees; taught procedures and provided performance reviews. " +
+                "    Created official correspondence to clients, as well as all hotel departments. " +
+                "    Communicated extensively with clients and vendors. " +
+                "    Set-up and managed direct billing with vendor companies. " +
+                "    Managed hotel’s reviews, rate information, and Choice Hotel accounts."},
+
+
+            new Duty{ JobID = context.Jobs.FirstOrDefault(y => y.CompanyName =="Albuquerque Water Authority").JobID,
+                DutiesPerformed ="Compliance Division Intern: Sort, categorize, and analyze Water Authority lab samples data. "+
+                "    Currently creatinga database for past and current samples data."+
+                "    Monitor well water sites. "+
+                "    Transcribed customer needs and assisted with customer solutions."}
             };
 
             foreach (Duty d in duties)
@@ -74,6 +87,8 @@ namespace ResumeProject.Data
 
             var references = new Reference[]
             {
+            new Reference{ ApplicantID = context.Applicants.FirstOrDefault(y => y.FirstName=="Dipendra").ApplicantID, FirstName ="Elizabeth ", LastName = "Anderson", PhoneNumber = "505-289-3382"},
+            new Reference{ ApplicantID = context.Applicants.FirstOrDefault(y => y.FirstName=="Dipendra").ApplicantID, FirstName ="Michael ", LastName = "Richardson", PhoneNumber = "505-289-3383"},
             new Reference{ ApplicantID = context.Applicants.FirstOrDefault(y => y.FirstName=="Dipendra").ApplicantID, FirstName ="Jay", LastName = "Shah", PhoneNumber = "505-292-7600"}
             };
 

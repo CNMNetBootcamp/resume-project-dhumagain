@@ -90,27 +90,58 @@
                 </tr>
                 @foreach (var item in Model.Jobs)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CompanyName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CompanyLocation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Position)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.WorkStartDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.WorkEndDate)
-                    </td>
-
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompanyLocation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Position)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkStartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkEndDate)
+                        </td>                        
+                        
+                    </tr>
                 }
+            </table>
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.References)
+        </dt>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone Number</th>
+
+                </tr>
+                @foreach (var item in Model.References)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+        </dd>
 
     </dl>
 </div>

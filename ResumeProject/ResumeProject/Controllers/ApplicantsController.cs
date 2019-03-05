@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace ResumeProject.Controllers
         }
 
         // GET: Applicants
+       // [Authorize]
         public async Task<IActionResult> Index(
             string sortOrder,
             string currentFilter,
@@ -84,8 +86,9 @@ namespace ResumeProject.Controllers
                 .Include(r => r.References)
                 .Include(j => j.Jobs)
                     .ThenInclude (d =>d.Duties)
+                
                 .AsNoTracking()
-                .SingleOrDefaultAsync(m => m.ApplicantID == id);
+                .SingleOrDefaultAsync(m => m.ApplicantID == id);            
 
             if (applicant == null)
             {
