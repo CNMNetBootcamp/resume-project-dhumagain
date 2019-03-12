@@ -29,6 +29,26 @@ namespace ResumeProject.Data
             //}
             //context.SaveChanges();
 
+            //delete first ask question later    *********Add This Once You Add Data********
+            //if (context.Students.Any())  
+
+            //{
+            //    foreach (var student in context.Students)
+            //    {
+            //        context.Students.Remove(student);
+            //    }
+
+            //    context.SaveChanges();
+            //    //now readd the students
+            //    AddStudnets(context);
+
+            //}
+            //else
+            //{
+            //    AddStudnets(context);
+            //} ****
+
+
             var educations = new Education[]
             {
             new Education{ApplicantID = context.Applicants.FirstOrDefault(y => y.FirstName=="Dipendra").ApplicantID, GPA=3.5, GraduationDate = DateTime.Parse("12-13-2020 00:00:00"), Major ="Computer Science", Minor ="N/A",

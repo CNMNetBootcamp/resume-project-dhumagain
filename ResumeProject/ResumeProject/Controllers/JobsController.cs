@@ -38,7 +38,9 @@ namespace ResumeProject.Controllers
             }
 
             var job = await _context.Jobs
+                .Include(y => y.Duties)
                 .SingleOrDefaultAsync(m => m.JobID == id);
+
             if (job == null)
             {
                 return NotFound();

@@ -40,6 +40,20 @@
         <dd>
             @Html.DisplayFor(model => model.WorkEndDate)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duties)
+        </dt>
+        <dd>
+            @foreach (var duty in Model.Duties)
+            {
+                @Html.DisplayFor(model => duty.DutiesPerformed)
+            }
+          
+        </dd>
+
+        
+
     </dl>
 </div>
 <div>

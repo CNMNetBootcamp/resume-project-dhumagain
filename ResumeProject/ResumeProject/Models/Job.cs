@@ -8,6 +8,7 @@ namespace ResumeProject.Models
     public class Job
     {
         public int JobID { get; set; }
+
         public string Position  { get; set; }
         public string CompanyName { get; set; }
         public string CompanyLocation { get; set; }
@@ -16,6 +17,7 @@ namespace ResumeProject.Models
         
         public int ApplicantID { get; set; }    
         public Applicant Applicant { get; set; }
+       // public int DutyID { get; set; }
         public ICollection<Duty> Duties { get; set; }
         
 

@@ -42,41 +42,41 @@ namespace ResumeProject
             services.AddMvc();
 
 
-           // services.Configure<IdentityOptions>(options =>
-           // {
-           //     //password settings
-                
-           //     options.Password.RequireDigit = true;
-           //     options.Password.RequiredLength = 8;
-           //     options.Password.RequireNonAlphanumeric = false;
-           //     options.Password.RequireUppercase = true;
-           //     options.Password.RequireLowercase = true;
-           //     options.Password.RequiredUniqueChars = 6;
-                
-           //     //lockout settings
-           //     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-           //     options.Lockout.MaxFailedAccessAttempts = 10;
-           //     options.Lockout.AllowedForNewUsers = true;
-           //     //use setting
-           //     options.User.RequireUniqueEmail = true;
+            services.Configure<IdentityOptions>(options =>
+            {
+                //password settings
 
-           // });
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequiredUniqueChars = 6;
 
-           // services.ConfigureApplicationCookie(options =>
-           //{
-           //    options.Cookie.HttpOnly = true;
-           //    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-           //    options.LoginPath = "/Account/Login";
-           //    options.AccessDeniedPath = "/AccountAccessDenied";
-           //    options.SlidingExpiration = true;
+                //lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.AllowedForNewUsers = true;
+                //use setting
+                options.User.RequireUniqueEmail = true;
 
-           //});
+            });
+
+            services.ConfigureApplicationCookie(options =>
+           {
+               options.Cookie.HttpOnly = true;
+               options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+               options.LoginPath = "/Account/Login";
+               options.AccessDeniedPath = "/AccountAccessDenied";
+               options.SlidingExpiration = true;
+
+           });
 
 
-            //// Add application services.
-            //services.AddTransient<IEmailSender, EmailSender>();
+            // Add application services.
+            services.AddTransient<IEmailSender, EmailSender>();
 
-            //services.AddMvc();
+            services.AddMvc();
 
 
 

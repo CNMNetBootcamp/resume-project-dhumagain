@@ -21,7 +21,7 @@ namespace ResumeProject.Controllers
         }
 
         // GET: Applicants
-       // [Authorize]
+        [Authorize]
         public async Task<IActionResult> Index(
             string sortOrder,
             string currentFilter,
@@ -85,8 +85,7 @@ namespace ResumeProject.Controllers
                 .Include (e => e.Educations)
                 .Include(r => r.References)
                 .Include(j => j.Jobs)
-                    .ThenInclude (d =>d.Duties)
-                
+                    .ThenInclude(d => d.Duties)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ApplicantID == id);            
 

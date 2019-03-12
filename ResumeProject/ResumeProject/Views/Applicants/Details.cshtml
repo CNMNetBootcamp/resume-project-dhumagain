@@ -105,8 +105,16 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.WorkEndDate)
-                        </td>                        
-                        
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        @foreach (var duty in item.Duties)
+                        {
+                            <th> Work Duties </th>
+                            @Html.DisplayFor(modelItem => duty.DutiesPerformed)
+                        }
                     </tr>
                 }
             </table>

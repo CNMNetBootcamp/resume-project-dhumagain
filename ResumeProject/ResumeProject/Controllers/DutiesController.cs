@@ -34,6 +34,7 @@ namespace ResumeProject.Controllers
             }
 
             var duty = await _context.Duties
+                .Include(d=>d.JobID)
                 .SingleOrDefaultAsync(m => m.DutyID == id);
             if (duty == null)
             {
