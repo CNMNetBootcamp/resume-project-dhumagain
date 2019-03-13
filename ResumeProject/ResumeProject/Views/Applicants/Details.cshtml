@@ -74,6 +74,7 @@
             </table>
         </dd>
 
+
         <dt>
             @Html.DisplayNameFor(model => model.Jobs)
         </dt>
@@ -88,8 +89,10 @@
                     <th>End Date</th>
 
                 </tr>
+
                 @foreach (var item in Model.Jobs)
                 {
+
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.CompanyName)
@@ -106,54 +109,51 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.WorkEndDate)
                         </td>
-
                     </tr>
 
-                    <tr>
-                        @foreach (var duty in item.Duties)
+                    @foreach (var duty in item.Duties)
+                    {
+                        <th> Work Duties</th>
+                        @Html.DisplayFor(modelItem => duty.DutiesPerformed)
+                    }
+                }
+            </table>
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.References)
+                </dt>
+
+                <dd>
+                    <table class="table">
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone Number</th>
+
+                        </tr>
+                        @foreach (var item in Model.References)
                         {
-                            <th> Work Duties </th>
-                            @Html.DisplayFor(modelItem => duty.DutiesPerformed)
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FirstName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LastName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                </td>
+
+                            </tr>
                         }
-                    </tr>
-                }
-            </table>
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.References)
-        </dt>
+                    </table>
+                </dd>
 
-        <dd>
-            <table class="table">
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Phone Number</th>
-
-                </tr>
-                @foreach (var item in Model.References)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LastName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PhoneNumber)
-                        </td>
-
-                    </tr>
-                }
-
-            </table>
-        </dd>
-
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ApplicantID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+            </dl>
+        </div>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.ApplicantID">Edit</a> |
+            <a asp-action="Index">Back to List</a>
+        </div>
