@@ -44,16 +44,17 @@
         <dt>
             @Html.DisplayNameFor(model => model.Duties)
         </dt>
-        <dd>
-            @foreach (var duty in Model.Duties)
-            {
-                @Html.DisplayFor(model => duty.DutiesPerformed)
-            }
-          
-        </dd>
-
-        
-
+        <div>
+            <hr />
+            <dl class="form-horizontal">
+                @foreach (var duty in Model.Duties)
+                {
+                    <dd>
+                        @Html.DisplayFor(model => duty.DutiesPerformed)
+                    </dd>
+                }
+            </dl>
+        </div>
     </dl>
 </div>
 <div>

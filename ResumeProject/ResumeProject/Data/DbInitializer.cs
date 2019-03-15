@@ -29,24 +29,7 @@ namespace ResumeProject.Data
             //}
             //context.SaveChanges();
 
-            //delete first ask question later    *********Add This Once You Add Data********
-            //if (context.Students.Any())  
 
-            //{
-            //    foreach (var student in context.Students)
-            //    {
-            //        context.Students.Remove(student);
-            //    }
-
-            //    context.SaveChanges();
-            //    //now readd the students
-            //    AddStudnets(context);
-
-            //}
-            //else
-            //{
-            //    AddStudnets(context);
-            //} ****
 
 
             //var educations = new Education[]
@@ -55,7 +38,7 @@ namespace ResumeProject.Data
             //    SchoolAddress ="Albuquerque, NM", SchoolName="University of New Mexico" },
             //new Education{ApplicantID = context.Applicants.FirstOrDefault(y => y.FirstName=="Dipendra").ApplicantID, GPA=3.69, GraduationDate = DateTime.Parse("12-13-2013 00:00:00"), Major ="Chemistry", Minor ="Biology," +
             //" Psychology", SchoolAddress="Albuquerque, NM", SchoolName="University of New Mexico" },
-            //new Education{ApplicantID = context.Applicants.FirstOrDefault(y => y.FirstName=="Dipendra").ApplicantID, GPA=3.93, GraduationDate = DateTime.Parse("12-13-2013 00:00:00"), Major ="Associate of Science, " 
+            //new Education{ApplicantID = context.Applicants.FirstOrDefault(y => y.FirstName=="Dipendra").ApplicantID, GPA=3.93, GraduationDate = DateTime.Parse("12-13-2013 00:00:00"), Major ="Associate of Science, "
             //+ "Applied Science ", Minor ="N/A", SchoolAddress="Hobbs, NM", SchoolName="New Mexico Junior College" }
 
             //};
@@ -84,19 +67,24 @@ namespace ResumeProject.Data
             //var duties = new Duty[]
             //{
             //new Duty{ JobID = context.Jobs.FirstOrDefault(y => y.CompanyName =="Econo Lodge East").JobID,
-            //    DutiesPerformed ="Assistant General Manager:  Coordinated lodging for clients, assistedclients with transportation and providedother pertinent. " +
-            //    "    Trainedand supervisedemployees; taught procedures and provided performance reviews. " +
-            //    "    Created official correspondence to clients, as well as all hotel departments. " +
-            //    "    Communicated extensively with clients and vendors. " +
-            //    "    Set-up and managed direct billing with vendor companies. " +
-            //    "    Managed hotel’s reviews, rate information, and Choice Hotel accounts."},
-
+            //    DutiesPerformed ="  Coordinated lodging for clients, assisted clients with transportation and provided other pertinent information. " },
+            //new Duty{ JobID = context.Jobs.FirstOrDefault(y => y.CompanyName =="Econo Lodge East").JobID,
+            //    DutiesPerformed ="  Trained and supervised employees; taught procedures and provided performance reviews. " },
+            //new Duty{ JobID = context.Jobs.FirstOrDefault(y => y.CompanyName =="Econo Lodge East").JobID,
+            //    DutiesPerformed ="  Created official correspondence to clients, as well as all hotel departments. " },
+            //new Duty{ JobID = context.Jobs.FirstOrDefault(y => y.CompanyName =="Econo Lodge East").JobID,
+            //    DutiesPerformed ="  Communicated extensively with clients and vendors. " },
+            //new Duty{ JobID = context.Jobs.FirstOrDefault(y => y.CompanyName =="Econo Lodge East").JobID,
+            //    DutiesPerformed ="  Set-up and managed direct billing with vendor companies. " },                       
 
             //new Duty{ JobID = context.Jobs.FirstOrDefault(y => y.CompanyName =="Albuquerque Water Authority").JobID,
-            //    DutiesPerformed ="Compliance Division Intern: Sort, categorize, and analyze Water Authority lab samples data. "+
-            //    "    Currently creatinga database for past and current samples data."+
-            //    "    Monitor well water sites. "+
-            //    "    Transcribed customer needs and assisted with customer solutions."}
+            //    DutiesPerformed ="  Sort, categorize, and analyze Water Authority lab samples data. " },
+            //new Duty{ JobID = context.Jobs.FirstOrDefault(y => y.CompanyName =="Albuquerque Water Authority").JobID,
+            //    DutiesPerformed ="  Currently creating a database for past and current samples data. " },
+            //new Duty{ JobID = context.Jobs.FirstOrDefault(y => y.CompanyName =="Albuquerque Water Authority").JobID,
+            //    DutiesPerformed ="  Monitor well water sites.  " },
+            //new Duty{ JobID = context.Jobs.FirstOrDefault(y => y.CompanyName =="Albuquerque Water Authority").JobID,
+            //    DutiesPerformed ="  Transcribed customer needs and assisted with customer solutions." }
             //};
 
             //foreach (Duty d in duties)
