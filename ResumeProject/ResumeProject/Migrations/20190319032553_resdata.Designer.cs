@@ -11,8 +11,8 @@ using System;
 namespace ResumeProject.Migrations
 {
     [DbContext(typeof(ResumeContext))]
-    [Migration("20190301033718_updateDatabase")]
-    partial class updateDatabase
+    [Migration("20190319032553_resdata")]
+    partial class resdata
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
