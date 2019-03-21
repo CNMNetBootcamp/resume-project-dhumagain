@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +20,15 @@ namespace ResumeProject.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: Educations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Educations.ToListAsync());
+            var resumeContext = _context.Educations.Include(e => e.Applicant);
+            return View(await resumeContext.ToListAsync());
         }
 
+        [Authorize]
         // GET: Educations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -34,6 +38,7 @@ namespace ResumeProject.Controllers
             }
 
             var education = await _context.Educations
+                .Include(e => e.Applicant)
                 .SingleOrDefaultAsync(m => m.EducationID == id);
             if (education == null)
             {
@@ -43,9 +48,11 @@ namespace ResumeProject.Controllers
             return View(education);
         }
 
+        [Authorize]
         // GET: Educations/Create
         public IActionResult Create()
         {
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName");
             return View();
         }
 
@@ -53,8 +60,9 @@ namespace ResumeProject.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EducationID,SchoolName,SchoolAddress,Major,Minor,GPA,GraduationDate")] Education education)
+        public async Task<IActionResult> Create([Bind("EducationID,ApplicantID,SchoolName,SchoolAddress,Major,Minor,GPA,GraduationDate")] Education education)
         {
             if (ModelState.IsValid)
             {
@@ -62,9 +70,11 @@ namespace ResumeProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName", education.ApplicantID);
             return View(education);
         }
 
+        [Authorize]
         // GET: Educations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -78,6 +88,7 @@ namespace ResumeProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName", education.ApplicantID);
             return View(education);
         }
 
@@ -85,8 +96,9 @@ namespace ResumeProject.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EducationID,SchoolName,SchoolAddress,Major,Minor,GPA,GraduationDate")] Education education)
+        public async Task<IActionResult> Edit(int id, [Bind("EducationID,ApplicantID,SchoolName,SchoolAddress,Major,Minor,GPA,GraduationDate")] Education education)
         {
             if (id != education.EducationID)
             {
@@ -113,6 +125,7 @@ namespace ResumeProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName", education.ApplicantID);
             return View(education);
         }
 
@@ -125,6 +138,7 @@ namespace ResumeProject.Controllers
             }
 
             var education = await _context.Educations
+                .Include(e => e.Applicant)
                 .SingleOrDefaultAsync(m => m.EducationID == id);
             if (education == null)
             {

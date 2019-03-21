@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ResumeProject.Migrations
 {
-    public partial class resdata : Migration
+    public partial class dataup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

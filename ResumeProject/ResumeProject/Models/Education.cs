@@ -14,9 +14,7 @@ namespace ResumeProject.Models
         public string Major { get; set; }
         public string Minor { get; set; }
         public double GPA { get; set; }
-        public DateTime GraduationDate { get; set; }
-
-        
+        public DateTime GraduationDate { get; set; }        
         public Applicant Applicant { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +20,15 @@ namespace ResumeProject.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: Duties
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Duties.ToListAsync());
+            var resumeContext = _context.Duties.Include(d => d.Job);
+            return View(await resumeContext.ToListAsync());
         }
 
+        [Authorize]
         // GET: Duties/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -34,7 +38,7 @@ namespace ResumeProject.Controllers
             }
 
             var duty = await _context.Duties
-                .Include(d=>d.JobID)
+                .Include(d => d.Job)
                 .SingleOrDefaultAsync(m => m.DutyID == id);
             if (duty == null)
             {
@@ -44,18 +48,19 @@ namespace ResumeProject.Controllers
             return View(duty);
         }
 
+        [Authorize]
         // GET: Duties/Create
         public IActionResult Create()
         {
-            ViewData["JobID"] = new SelectList(_context.Jobs, "JobID","Position");
+            ViewData["JobID"] = new SelectList(_context.Jobs, "JobID", "CompanyName");
             return View();
-            
         }
 
         // POST: Duties/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("DutyID,DutiesPerformed,JobID")] Duty duty)
         {
@@ -65,9 +70,11 @@ namespace ResumeProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["JobID"] = new SelectList(_context.Jobs, "JobID", "CompanyName", duty.JobID);
             return View(duty);
         }
 
+        [Authorize]
         // GET: Duties/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -81,6 +88,7 @@ namespace ResumeProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["JobID"] = new SelectList(_context.Jobs, "JobID", "CompanyName", duty.JobID);
             return View(duty);
         }
 
@@ -88,6 +96,7 @@ namespace ResumeProject.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("DutyID,DutiesPerformed,JobID")] Duty duty)
         {
@@ -116,6 +125,7 @@ namespace ResumeProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["JobID"] = new SelectList(_context.Jobs, "JobID", "CompanyName", duty.JobID);
             return View(duty);
         }
 
@@ -128,6 +138,7 @@ namespace ResumeProject.Controllers
             }
 
             var duty = await _context.Duties
+                .Include(d => d.Job)
                 .SingleOrDefaultAsync(m => m.DutyID == id);
             if (duty == null)
             {

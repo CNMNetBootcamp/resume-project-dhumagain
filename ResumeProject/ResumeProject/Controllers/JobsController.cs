@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,16 +20,16 @@ namespace ResumeProject.Controllers
             _context = context;
         }
 
+
+        [Authorize]
         // GET: Jobs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Jobs
-                .Include(y => y.Duties)
-                .AsNoTracking()
-                .ToListAsync());
-            // return View(await _context.Jobs.ToListAsync());
+            var resumeContext = _context.Jobs.Include(j => j.Applicant);
+            return View(await resumeContext.ToListAsync());
         }
 
+        [Authorize]
         // GET: Jobs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -38,9 +39,8 @@ namespace ResumeProject.Controllers
             }
 
             var job = await _context.Jobs
-                .Include(y => y.Duties)
+                .Include(j => j.Applicant)
                 .SingleOrDefaultAsync(m => m.JobID == id);
-
             if (job == null)
             {
                 return NotFound();
@@ -49,9 +49,11 @@ namespace ResumeProject.Controllers
             return View(job);
         }
 
+        [Authorize]
         // GET: Jobs/Create
         public IActionResult Create()
         {
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName");
             return View();
         }
 
@@ -59,8 +61,9 @@ namespace ResumeProject.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("JobID,Position,CompanyName,CompanyLocation,WorkStartDate,WorkEndDate")] Job job)
+        public async Task<IActionResult> Create([Bind("JobID,Position,CompanyName,CompanyLocation,WorkStartDate,WorkEndDate,ApplicantID")] Job job)
         {
             if (ModelState.IsValid)
             {
@@ -68,9 +71,11 @@ namespace ResumeProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName", job.ApplicantID);
             return View(job);
         }
 
+        [Authorize]
         // GET: Jobs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -84,15 +89,17 @@ namespace ResumeProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName", job.ApplicantID);
             return View(job);
         }
 
+        [Authorize]
         // POST: Jobs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("JobID,Position,CompanyName,CompanyLocation,WorkStartDate,WorkEndDate")] Job job)
+        public async Task<IActionResult> Edit(int id, [Bind("JobID,Position,CompanyName,CompanyLocation,WorkStartDate,WorkEndDate,ApplicantID")] Job job)
         {
             if (id != job.JobID)
             {
@@ -119,6 +126,7 @@ namespace ResumeProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName", job.ApplicantID);
             return View(job);
         }
 
@@ -131,6 +139,7 @@ namespace ResumeProject.Controllers
             }
 
             var job = await _context.Jobs
+                .Include(j => j.Applicant)
                 .SingleOrDefaultAsync(m => m.JobID == id);
             if (job == null)
             {

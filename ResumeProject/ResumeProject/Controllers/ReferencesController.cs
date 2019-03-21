@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +20,15 @@ namespace ResumeProject.Controllers
             _context = context;
         }
 
+        [Authorize]
         // GET: References
         public async Task<IActionResult> Index()
         {
-            return View(await _context.References.ToListAsync());
+            var resumeContext = _context.References.Include(r => r.Applicant);
+            return View(await resumeContext.ToListAsync());
         }
 
+        [Authorize]
         // GET: References/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -34,6 +38,7 @@ namespace ResumeProject.Controllers
             }
 
             var reference = await _context.References
+                .Include(r => r.Applicant)
                 .SingleOrDefaultAsync(m => m.ReferenceID == id);
             if (reference == null)
             {
@@ -43,9 +48,11 @@ namespace ResumeProject.Controllers
             return View(reference);
         }
 
+        [Authorize]
         // GET: References/Create
         public IActionResult Create()
         {
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName");
             return View();
         }
 
@@ -53,8 +60,9 @@ namespace ResumeProject.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReferenceID,LastName,FirstName,PhoneNumber")] Reference reference)
+        public async Task<IActionResult> Create([Bind("ReferenceID,LastName,FirstName,PhoneNumber,ApplicantID")] Reference reference)
         {
             if (ModelState.IsValid)
             {
@@ -62,9 +70,11 @@ namespace ResumeProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName", reference.ApplicantID);
             return View(reference);
         }
 
+        [Authorize]
         // GET: References/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -78,15 +88,17 @@ namespace ResumeProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName", reference.ApplicantID);
             return View(reference);
         }
 
+        [Authorize]
         // POST: References/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReferenceID,LastName,FirstName,PhoneNumber")] Reference reference)
+        public async Task<IActionResult> Edit(int id, [Bind("ReferenceID,LastName,FirstName,PhoneNumber,ApplicantID")] Reference reference)
         {
             if (id != reference.ReferenceID)
             {
@@ -113,6 +125,7 @@ namespace ResumeProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicantID"] = new SelectList(_context.Applicants, "ApplicantID", "LastName", reference.ApplicantID);
             return View(reference);
         }
 
@@ -125,6 +138,7 @@ namespace ResumeProject.Controllers
             }
 
             var reference = await _context.References
+                .Include(r => r.Applicant)
                 .SingleOrDefaultAsync(m => m.ReferenceID == id);
             if (reference == null)
             {

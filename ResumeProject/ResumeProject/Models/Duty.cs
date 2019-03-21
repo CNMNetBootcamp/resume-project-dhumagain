@@ -9,7 +9,10 @@ namespace ResumeProject.Models
     {
         public int DutyID { get; set; }
         public string DutiesPerformed { get; set; }
-//TBD if you add the jobid here as a field it will make your views easier to manage       
-        public int JobID { get; set; }      //FK: JobID 
+//TBD if you add the jobid here as a field it will make your views easier to manage    
+        
+        public int JobID { get; set; }      //FK: JobID
+        public Job Job { get; set; }
+
     }
 }

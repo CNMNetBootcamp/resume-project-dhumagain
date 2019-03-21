@@ -11,8 +11,8 @@ using System;
 namespace ResumeProject.Migrations
 {
     [DbContext(typeof(ResumeContext))]
-    [Migration("20190319032553_resdata")]
-    partial class resdata
+    [Migration("20190321012715_dataup")]
+    partial class dataup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -127,7 +127,7 @@ namespace ResumeProject.Migrations
 
             modelBuilder.Entity("ResumeProject.Models.Duty", b =>
                 {
-                    b.HasOne("ResumeProject.Models.Job")
+                    b.HasOne("ResumeProject.Models.Job", "Job")
                         .WithMany("Duties")
                         .HasForeignKey("JobID")
                         .OnDelete(DeleteBehavior.Cascade);

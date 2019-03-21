@@ -126,7 +126,7 @@ namespace ResumeProject.Migrations
 
             modelBuilder.Entity("ResumeProject.Models.Duty", b =>
                 {
-                    b.HasOne("ResumeProject.Models.Job")
+                    b.HasOne("ResumeProject.Models.Job", "Job")
                         .WithMany("Duties")
                         .HasForeignKey("JobID")
                         .OnDelete(DeleteBehavior.Cascade);
